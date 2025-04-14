@@ -1,0 +1,11 @@
+- name: Install epel-release
+  ansible.builtin.yum:
+    name:
+      - epel-release
+    state: present
+
+- name: Install WireGuard
+  ansible.builtin.yum:
+    name:
+      - wireguard-tools
+    state: present
