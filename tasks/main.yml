@@ -24,5 +24,9 @@
   register: wg_public_key
   become: yes
 
-# - name: Create wg config file
+- name: Create wg config file
+  ansible.builtin.template:
+    src: client_interface.j2
+    dest: /etc/wireguard/wg0.conf
+
 # - name: Start wg interface with config file
