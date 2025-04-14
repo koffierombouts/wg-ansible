@@ -11,7 +11,14 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Variable Name | Default Value |
+| ----------- | --------------- |
+|client_ip_address| TODO: automate checking how many peers are connected|
+|allowed_ips| 10.0.0.0/24|
+|vpn_server_port| 51820|
+|keepalive|25|
+| server_public_key| None|
+|vpn_server_endpoint| None |
 
 Dependencies
 ------------
