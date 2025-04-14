@@ -1,2 +1,9 @@
 ---
-# tasks file for wg-ansible
+- name: Include OS-specific tasks
+  include_tasks: "{{ os_item.value }}"
+  when: ansible_os_family == os_item.key
+  loop:
+    - { key: 'Debian', value: 'setup-debian.yml' }
+    - { key: 'Rocky',  value: 'setup-rocky.yml' }
+  loop_control:
+    loop_var: os_item
