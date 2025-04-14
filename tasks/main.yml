@@ -3,24 +3,23 @@
   include_tasks: "{{ os_item.value }}"
   when: ansible_os_family == os_item.key
   loop:
-    - { key: 'Rocky',  value: 'setup-rocky.yml' }
-    - { key: 'Debian', value: 'setup-debian.yml' }
+    - { key: "Rocky", value: "setup-rocky.yml" }
+    - { key: "Debian", value: "setup-debian.yml" }
   loop_control:
     loop_var: os_item
 
-- name: Generate public-private keypair
-  ansible.builtin.shell: wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
+- name: Generate and register private key
+  ansible.builtin.shell: wg genkey | tee /etc/wireguard/privatekey
   args:
     creates: /etc/wireguard/privatekey
-  become: yes
-
-- name: Save privatekey in usable var
-  ansible.builtin.shell: cat /etc/wireguard/privatekey
   register: wg_private_key
   become: yes
 
-- name: Save publickey in usable var
-  ansible.builtin.shell: cat /etc/wireguard/publickey
+- name: Derive and register public key
+  ansible.builtin.shell: wg pubkey
+  args:
+    creates: /etc/wireguard/publickey
+    stdin: wg_private_key
   register: wg_public_key
   become: yes
 
@@ -28,5 +27,4 @@
   ansible.builtin.template:
     src: client_interface.j2
     dest: /etc/wireguard/wg0.conf
-
 # - name: Start wg interface with config file
