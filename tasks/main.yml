@@ -7,3 +7,12 @@
     - { key: 'Rocky',  value: 'setup-rocky.yml' }
   loop_control:
     loop_var: os_item
+
+- name: Generate public-private keypair
+  ansible.builtin.command: wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
+  args:
+    creates: /etc/wireguard/privatekey
+  become: yes
+
+# - name: Create wg config file
+# - name: Start wg interface with config file
