@@ -3,3 +3,5 @@
 vpn_server_port: "51820"
 allowed_ips: "10.0.0.0/24"
 keepalive: "25"
+
+interface_name: "wg0"
