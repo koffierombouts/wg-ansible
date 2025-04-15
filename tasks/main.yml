@@ -27,5 +27,8 @@
 - name: Create wg config file
   ansible.builtin.template:
     src: client_interface.j2
-    dest: /etc/wireguard/wg0.conf
-# - name: Start wg interface with config file
+    dest: "/etc/wireguard/{{ interface_name }}.conf"
+
+- name: Start wg interface with config file
+  ansible.builtin.command: "wg-quick up {{ interface_name }}"
+  become: yes
