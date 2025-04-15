@@ -1,0 +1,15 @@
+- name: Create wg config file
+  ansible.builtin.template:
+    src: server_interface_fresh.j2
+    dest: "/etc/wireguard/{{ interface_name }}.conf"
+
+- name: Start wg interface with config file
+  ansible.builtin.command: "wg-quick up {{ interface_name }}"
+  ignore_errors: true
+  register: wg_interface_state
+  become: yes
+
+- name: Restart wg interface if already running
+  ansible.builtin.shell: "wg-quick down {{ interface_name }}; wg-quick up {{ interface_name }}"
+  when: wg_interface_state.rc == 1
+  become: yes
