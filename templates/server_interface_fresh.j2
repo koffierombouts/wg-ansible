@@ -1,0 +1,12 @@
+[Interface]
+Address = {{ vpn_server_address }}
+{% for dns in wg_dns_servers %}
+DNS = {{ dns }}
+{% endfor %}
+SaveConfig = {{ save_config }}
+ListenPort = {{ vpn_server_port }}
+PrivateKey = {{ wg_private_key.stdout }}
+
+[Peer]
+PublicKey = {{ client_public_key }}
+AllowedIPs = {{ allowed_ips }}
