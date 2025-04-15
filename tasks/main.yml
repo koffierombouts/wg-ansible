@@ -24,11 +24,11 @@
   register: wg_public_key
   become: yes
 
-- name: Create wg config file
-  ansible.builtin.template:
-    src: client_interface.j2
-    dest: "/etc/wireguard/{{ interface_name }}.conf"
-
-- name: Start wg interface with config file
-  ansible.builtin.command: "wg-quick up {{ interface_name }}"
-  become: yes
+- name: Load specific configuration task
+  include_tasks: "{{ config_type.value }}"
+  when: wg_type == config_type.key
+  loop:
+    - { key: "client", value: "client_config.yml" }
+    - { key: "server", value: "server_config.yml" }
+  loop_control:
+    loop_var: config_type
