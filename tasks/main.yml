@@ -3,8 +3,8 @@
   include_tasks: "{{ os_item.value }}"
   when: ansible_os_family == os_item.key
   loop:
-    - { key: 'Rocky',  value: 'setup-rocky.yml' }
-    - { key: 'Debian', value: 'setup-debian.yml' }
+    - { key: "Rocky", value: "setup-rocky.yml" }
+    - { key: "Debian", value: "setup-debian.yml" }
   loop_control:
     loop_var: os_item
 
@@ -24,5 +24,8 @@
   register: wg_public_key
   become: yes
 
-# - name: Create wg config file
+- name: Create wg config file
+  ansible.builtin.template:
+    src: client_interface.j2
+    dest: /etc/wireguard/wg0.conf
 # - name: Start wg interface with config file
