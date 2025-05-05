@@ -1,6 +1,6 @@
 # wg-ansible
 
-wg-ansible can be used to easily deploy
+wg-ansible can be used to easily deploy P2P WireGuard connections. To start using this role, clone it into your role directory. Then integrate it into a playbook.
 
 ## Requirements
 
@@ -11,7 +11,7 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 | Variable Name       | Default Value                                        |
 | ------------------- | ---------------------------------------------------- |
 | client_ip_address   | TODO: automate checking how many peers are connected |
-| allowed_ips         | 10.0.0.0/24                                          |
+| allowed_ips         | 10.8.0.0/24                                          |
 | vpn_server_port     | 51820                                                |
 | keepalive           | 25                                                   |
 | server_public_key   | None                                                 |
